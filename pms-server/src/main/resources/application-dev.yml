@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://aliyun:3306/pms?useUnicode=true&useSSL=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: tellMeWhoAmI?
+  redis:
+    host: aliyun
+    password: tellMeWhoAmI?
+    port: 6379
+    database: 0
