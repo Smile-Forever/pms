@@ -9,9 +9,18 @@ public class Resp<T> {
     private T data;
     private String msg;
 
-    public static <E> Resp<E> success(E data){
+    public static <E> Resp<E> success() {
+        return new Resp<E>().setCode(0);
+    }
+
+    public static <E> Resp<E> success(E data) {
         return new Resp<E>().setCode(0).setData(data);
     }
+
+    public static <E> Resp<E> failure(int code, String msg) {
+        return new Resp<E>().setCode(code).setMsg(msg);
+    }
+
     public int getCode() {
         return code;
     }

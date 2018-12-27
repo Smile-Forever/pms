@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 public class NationalServiceImpl implements NationalService {
 
     @Autowired
-    private NationalDao nationalMapper;
+    private NationalDao nationalDao;
 
     @Override
     public List<SysConfigVO> getAll() {
-        return nationalMapper.findAll().stream().map(e -> {
+        return nationalDao.findAll().stream().map(e -> {
             SysConfigVO vo = new SysConfigVO();
             vo.setEnable(e.getEnable());
             vo.setId(e.getId());

@@ -2,6 +2,7 @@ package cn.tedu.pms.dao;
 
 import cn.tedu.pms.entity.NationalEntity;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 /**

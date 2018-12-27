@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.pms.dao.PositionDao">
+    <select id="findAll" resultType="cn.tedu.pms.entity.PositionEntity">
+        SELECT
+          id ,
+          name,
+          enable
+        FROM
+          position
+        WHERE enable=1
+    </select>
+    <insert id="insert" parameterType="cn.tedu.pms.entity.PositionEntity" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO position (
+          name
+        ) VALUES (
+          #{name}
+        )
+    </insert>
+
+    <delete id="deleteByIds" parameterType="cn.tedu.pms.entity.PositionEntity">
+        DELETE FROM
+          position
+        WHERE
+          id IN (
+            <foreach collection="array" item="id" separator=",">
+                #{id}
+            </foreach>
+          )
+    </delete>
+
+    <update id="update" parameterType="cn.tedu.pms.entity.PositionEntity">
+        UPDATE position
+        SET
+          name=#{name},
+          enable=#{enable}
+        WHERE
+          id=#{id}
+    </update>
+
+    <select id="findByName" parameterType="string" resultType="cn.tedu.pms.entity.PositionEntity">
+        select id,name,enable
+        from position
+        where name=#{name}
+    </select>
+    <select id="findById" parameterType="int" resultType="cn.tedu.pms.entity.PositionEntity">
+        select id,name,enable
+        from position
+        where id=#{id}
+    </select>
+</mapper>
