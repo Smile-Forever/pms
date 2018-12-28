@@ -16,7 +16,7 @@ public class FileUploadUtils {
     @Value("${config.file-upload.host-name:XXXXXXXXXXXX}")
     private String host;
 
-    public static final String BASE_PATH = "E:\\\\yms";
+    public static final String BASE_PATH = "E:/pms_imgs";
 
     public String generateFilePathForUserHeaderUpload(String userId) {
         return BASE_PATH + "/" + userId + ".png";
