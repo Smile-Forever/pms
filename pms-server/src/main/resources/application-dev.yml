@@ -9,3 +9,6 @@ spring:
     password: tellMeWhoAmI?
     port: 6379
     database: 0
+config:
+  file-upload:
+    host-name: 127.0.0.1
