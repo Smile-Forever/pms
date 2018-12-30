@@ -2,6 +2,6 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
 spring:
   profiles:
-    active: local
+    active: @activatedProperties@
 server:
   port: 8080
