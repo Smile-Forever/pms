@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.pms.dao.DeppartmentDao">
+    <select id="finAll" resultType="cn.tedu.pms.entity.DepartmentEntity">
+        select
+          id,name ,enable,
+          is_parent,path,
+          parent_id,
+          created_by
+        from department
+          where enable=1
+    </select>
+
+    <select id="findByName" parameterType="String" resultType="cn.tedu.pms.entity.DepartmentEntity">
+         select
+          id,name ,enable,
+          is_parent,path,
+          parent_id,
+          created_by
+        from department
+          where name = #{name}
+    </select>
+
+    <select id="findById" parameterType="Integer" resultType="cn.tedu.pms.entity.DepartmentEntity">
+        select
+            id,name,enable,
+            is_parent,path,
+            parent_id,create_by
+        where
+            id = #{id}
+    </select>
+
+    <select id="findByPath" parameterType="String" resultType="cn.tedu.pms.entity.DepartmentEntity">
+      select
+          id,name ,enable,
+          is_parent,path,
+          parent_id,
+          created_by
+        from department
+          where path like #{path%};
+    </select>
+
+    <insert id="insert" parameterType="cn.tedu.pms.entity.DepartmentEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into
+          department
+        values
+          id,name ,enable,
+          is_parent,path,
+          parent_id,
+          created_by
+        values(
+          #{name}
+        );
+    </insert>
+</mapper>

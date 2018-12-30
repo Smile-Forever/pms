@@ -13,7 +13,7 @@ public class FileUploadUtils {
     @Value("${server.port}")
     private Integer port;
 
-    @Value("${config.file-upload.host-name:XXXXXXXXXXXX}")
+    @Value("${config.file-upload.host-name:localhost}")
     private String host;
 
     public static final String BASE_PATH = "E:/pms_imgs";
