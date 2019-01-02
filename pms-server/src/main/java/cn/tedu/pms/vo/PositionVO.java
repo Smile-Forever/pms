@@ -1,10 +1,12 @@
 package cn.tedu.pms.vo;
 
+import java.io.Serializable;
+
 /**
  * @author Smile
  * Created at 2018/12/27
  */
-public class PositionVO {
+public class PositionVO implements Serializable {
     private Integer id;
     private String name;
     private Boolean enable;

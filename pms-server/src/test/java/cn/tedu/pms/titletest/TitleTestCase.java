@@ -19,13 +19,13 @@ import java.util.List;
 public class TitleTestCase {
     @Autowired
     private TitleDao titleDao;
-    @Test
-    public void selectAll(){
-        List<TitleEntity> all = titleDao.findAll();
-            for(TitleEntity alls : all){
-                System.out.println(alls);
-        }
-    }
+//    @Test
+//    public void selectAll(){
+//        List<TitleEntity> all = titleDao.findAll();
+//            for(TitleEntity alls : all){
+//                System.out.println(alls);
+//        }
+//    }
     @Test
     public void selectByName(){
         TitleEntity name = titleDao.findByName("jack");

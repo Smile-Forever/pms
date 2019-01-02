@@ -6,14 +6,15 @@ import cn.tedu.pms.exception.ParamException;
 import cn.tedu.pms.exception.ResourceNotFoundException;
 import cn.tedu.pms.exception.ResourceRepeatException;
 import cn.tedu.pms.service.TitleService;
+import cn.tedu.pms.vo.PageableVO;
 import cn.tedu.pms.vo.TitleVO;
 import cn.tedu.pms.web.SysConfigQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,20 +23,27 @@ import java.util.stream.Collectors;
  * Created at 2018/12/28
  */
 @Service
-public class TitleImpl implements TitleService {
+public class TitleServiceImpl implements TitleService {
     @Autowired
     private TitleDao titleDao;
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public List<TitleVO> findAll() {
-        return titleDao.findAll().stream().map(e -> {
+    public PageableVO<TitleVO> findAll(SysConfigQueryParam param, Integer page, Integer pageSize) {
+
+        long totalCount = titleDao.count(param);
+        if (totalCount <= 0){
+            return PageableVO.empty();
+        }
+
+        List<TitleVO> data = titleDao.findAll(param , (page - 1) * pageSize, pageSize).stream().map(e -> {
             TitleVO vo = new TitleVO();
             vo.setId(e.getId());
             vo.setName(e.getName());
             vo.setEnable(e.getEnable());
             return vo;
         }).collect(Collectors.toList());
+        return new PageableVO<TitleVO>().setData(data).setTotalCount(totalCount);
     }
 
     @Override

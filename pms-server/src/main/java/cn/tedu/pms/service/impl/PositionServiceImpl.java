@@ -6,6 +6,7 @@ import cn.tedu.pms.exception.ParamException;
 import cn.tedu.pms.exception.ResourceNotFoundException;
 import cn.tedu.pms.exception.ResourceRepeatException;
 import cn.tedu.pms.service.PositionService;
+import cn.tedu.pms.vo.PageableVO;
 import cn.tedu.pms.vo.PositionVO;
 import cn.tedu.pms.web.SysConfigQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,23 @@ public class PositionServiceImpl implements PositionService {
     private PositionDao positionDao;
 
     @Override
-    public List<PositionVO> findAll() {
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public PageableVO<PositionVO> findAll(SysConfigQueryParam param, Integer page, Integer pageSize) {
 
-        return positionDao.findAll().stream().map(e -> {
+        long totalCount = positionDao.count(param);
+        if (totalCount <= 0) {
+            return PageableVO.empty();
+        }
+
+        List<PositionVO> data = positionDao.findAll(param, (page - 1) * pageSize, pageSize).stream().map(e -> {
             PositionVO vo = new PositionVO();
             vo.setId(e.getId());
             vo.setName(e.getName());
             vo.setEnable(e.getEnable());
             return vo;
         }).collect(Collectors.toList());
+
+        return new PageableVO<PositionVO>().setData(data).setTotalCount(totalCount);
     }
 
     @Override

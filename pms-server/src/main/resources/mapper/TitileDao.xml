@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.pms.dao.TitleDao">
+
+    <select id="count" resultType="long">
+        SELECT
+        count(1)
+        from title
+        <where>
+            <if test="name != null">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="enable != null">
+                and enable = #{enable}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="cn.tedu.pms.entity.TitleEntity">
+        SELECT
+        id ,
+        name,
+        enable
+        FROM
+        title
+        <where>
+            <if test="condition.name != null">
+                name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.enable != null">
+                and enable = #{condition.enable}
+            </if>
+        </where>
+        limit #{start},#{count}
+    </select>
+
     <select id="findByName" parameterType="String"  resultType="cn.tedu.pms.entity.TitleEntity">
         select id , name , enable
         from Title
@@ -15,12 +48,6 @@
         id = #{id}
     </select>
 
-    <select id="findAll" resultType="cn.tedu.pms.entity.TitleEntity">
-        select id, name , enable
-        from title
-        where
-        enable=1
-    </select>
 
     <insert id="insert" parameterType="cn.tedu.pms.entity.TitleEntity" useGeneratedKeys="true"  keyProperty="id">
         INSERT INTO title (

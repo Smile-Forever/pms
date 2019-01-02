@@ -2,17 +2,15 @@ package cn.tedu.pms.controller;
 
 import cn.tedu.pms.service.TitleService;
 import cn.tedu.pms.utils.MapBuilder;
+import cn.tedu.pms.vo.PageableVO;
 import cn.tedu.pms.vo.PositionVO;
 import cn.tedu.pms.vo.Resp;
 import cn.tedu.pms.vo.TitleVO;
 import cn.tedu.pms.web.SysConfigQueryParam;
-import com.google.common.collect.Maps;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,8 +24,12 @@ public class TitleController {
     private TitleService titleService;
 
     @GetMapping("/title/list")
-    public Resp<List<TitleVO>> getTitleAll() {
-        return Resp.success(titleService.findAll());
+    public Resp<PageableVO<TitleVO>> getTitleAll(
+            SysConfigQueryParam param,
+            @RequestParam(name = "page" , defaultValue = "1" ,required=false)Integer page,
+            @RequestParam(name = "pageSize",defaultValue = "5", required = false) Integer pageSize) {
+            PageableVO<TitleVO> vo = titleService.findAll(param, page ,pageSize);
+            return Resp.success(vo);
     }
 
     @PostMapping("/title/new")

@@ -1,5 +1,6 @@
 package cn.tedu.pms.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,7 +15,9 @@ public class DepartmentEntity {
     private String name;
     private Boolean enable;
     private String path;
-    private Integer parent_id;
+    @Column(name = "parent_id")
+    private Integer parentId;
+    @Column(name = "created_by")
     private Integer createdBy;
 
     public Integer getId() {
@@ -53,12 +56,12 @@ public class DepartmentEntity {
         return this;
     }
 
-    public Integer getParent_id() {
-        return parent_id;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public DepartmentEntity setParent_id(Integer parent_id) {
-        this.parent_id = parent_id;
+    public DepartmentEntity setParentId(Integer parentId) {
+        this.parentId = parentId;
         return this;
     }
 
@@ -78,7 +81,7 @@ public class DepartmentEntity {
                 ", name='" + name + '\'' +
                 ", enable=" + enable +
                 ", path='" + path + '\'' +
-                ", parent_id=" + parent_id +
+                ", parentId=" + parentId +
                 ", createdBy=" + createdBy +
                 '}';
     }

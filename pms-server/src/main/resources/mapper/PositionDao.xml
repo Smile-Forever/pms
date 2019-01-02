@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.tedu.pms.dao.PositionDao">
+    <select id="count" resultType="long">
+        SELECT
+        count(1)
+        from position
+        <where>
+            <if test="name != null">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="enable != null">
+                and enable = #{enable}
+            </if>
+        </where>
+    </select>
+
     <select id="findAll" resultType="cn.tedu.pms.entity.PositionEntity">
         SELECT
           id ,
@@ -9,7 +23,15 @@
           enable
         FROM
           position
-        WHERE enable=1
+        <where>
+            <if test="condition.name != null">
+                name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.enable != null">
+                and enable = #{condition.enable}
+            </if>
+        </where>
+        limit #{start},#{count}
     </select>
     <insert id="insert" parameterType="cn.tedu.pms.entity.PositionEntity" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
