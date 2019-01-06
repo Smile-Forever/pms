@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.pms.dao.UserDao">
+
+    <!--新增用户sql-->
+    <insert id="addnew" parameterType="cn.tedu.pms.entity.UserEntity" keyProperty="id" useGeneratedKeys="true">
+       INSERT INTO user (
+            username, password,
+            salt, gender,
+            phone, email,
+            avatar, is_delete,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{username}, #{password},
+            #{salt}, #{gender},
+            #{phone}, #{email},
+            #{avatar}, #{isDelete},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    </insert>
+    <!--根据id查询用户数据-->
+    <!-- UserEntity findById(Integer id)-->
+    <select id="findById" resultType="cn.tedu.pms.entity.UserEntity" parameterType="Integer">
+	SELECT
+		username,
+		gender, phone, email,
+		password, salt,
+		is_delete AS isDelete
+	FROM 
+		user
+	WHERE 
+		id=#{id}
+    </select>
+    <!--根据用户名查询用户数据-->
+    <!--UserEntity findByUsername(String name);-->
+    <select id="findByUsername" resultType="cn.tedu.pms.entity.UserEntity" parameterType="String">
+        select
+            id,username,
+            salt,avatar,
+            is_delete
+        from
+            user
+        where
+            username=#{username}
+    </select>
+
+    <!--修改用户资料-->
+    <update id="updateInfo">
+        update user
+        set
+        <if test=" gender != null">
+            gender=#{gender},
+        </if>
+        <if test="phone != null">
+            phone=#{phone},
+        </if>
+        <if test="email != null">
+            email=#{email},
+        </if>
+        modified_user=#{modifiedUser},
+        modified_time=#{modifiedTime}
+        where
+        id=#{id}
+    </update>
+    <!--分页相关-->
+    <select id="count" resultType="long">
+        SELECT
+        count(1)
+        from user
+        <where>
+            <if test="username != null">
+                username like concat('%',#{username},'%')
+            </if>
+        </where>
+
+    </select>
+    <!--查询所有用户-->
+    <select id="findAll" resultType="cn.tedu.pms.entity.UserEntity">
+        select
+        id,
+        username, password,
+        salt, gender,
+        phone, email,
+        avatar, is_delete,
+        created_user, created_time,
+        modified_user, modified_time
+        from user
+        <where>
+            <if test="condition.username != null">
+                username like concat('%' , #{condition.username} ,'%')
+            </if>
+            <if test="condition.isDelete != null">
+                and is_delete = #{condition.isDelete}
+            </if>
+        </where>
+        limit #{start},#{count}
+    </select>
+    <!--删除用户-->
+    <delete id="deleteIds" parameterType="cn.tedu.pms.entity.UserEntity">
+        delete from
+         user
+         where id in (
+          <foreach collection="array" separator="," item="id">
+              id=#{id}
+          </foreach>
+         )
+    </delete>
+</mapper>

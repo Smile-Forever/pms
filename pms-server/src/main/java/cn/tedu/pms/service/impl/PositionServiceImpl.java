@@ -61,11 +61,13 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteByIds(Integer id) {
         this.positionDao.deleteByIds(new Integer[]{id});
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void update(SysConfigQueryParam param) {
         if (param.getId() == null || param.getId() <= 0) {
             throw new ParamException("id为空或不合法");

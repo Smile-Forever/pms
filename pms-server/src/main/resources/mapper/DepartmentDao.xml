@@ -27,8 +27,10 @@
             id,name,enable,
             is_parent,path,
             parent_id,create_by
+        from
+            department
         where
-            id = #{id}
+            id = #{parentId}
     </select>
 
     <!--<select id="findByPath" parameterType="String" resultType="cn.tedu.pms.entity.DepartmentEntity">-->
@@ -53,4 +55,23 @@
           #{name}
         )
     </insert>
+
+    <delete id="delete" parameterType="cn.tedu.pms.entity.DepartmentEntity">
+        DELETE FROM
+        department
+        WHERE
+        id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <update id="update" parameterType="cn.tedu.pms.entity.DepartmentEntity">
+        update department
+        set
+            path = /parent/yyyy/xxx/newId
+        where
+          id=newId
+    </update>
 </mapper>

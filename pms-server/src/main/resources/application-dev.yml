@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://aliyun:3306/pms?useUnicode=true&useSSL=true&zeroDateTimeBehavior=convertToNull
     username: root
     password: tellMeWhoAmI?
+    driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: aliyun
     password: tellMeWhoAmI?

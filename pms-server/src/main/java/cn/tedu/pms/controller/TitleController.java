@@ -11,8 +11,6 @@ import cn.tedu.pms.web.SysConfigQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @author Smile
  * Created at 2018/12/28
@@ -47,7 +45,7 @@ public class TitleController {
     }
 
     @GetMapping("/title/delete")
-    public Resp<PositionVO> getDelete(@RequestParam("xxx") Integer id) {
+    public Resp<PositionVO> getDelete(@RequestParam("id") Integer id) {
         titleService.deleteByIds(id);
         return Resp.success();
     }
