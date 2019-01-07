@@ -10,6 +10,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import static cn.tedu.pms.vo.ResultCode.RESOURCE_REPEAT;
 import static cn.tedu.pms.vo.ResultCode.SERVER_ERROR;
@@ -58,6 +60,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateKeyException.class)
     public Resp processDuplicateKeyException(DuplicateKeyException e) {
         return Resp.failure(403, e.getMessage());
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ModelAndView processNoHandlerFoundException(NoHandlerFoundException e) {
+        return new ModelAndView("forward:/index.html");
     }
 
     /**

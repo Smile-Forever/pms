@@ -29,11 +29,23 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -112,6 +124,26 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/**.css</exclude>
+                    <exclude>**/**.js</exclude>
+                    <exclude>**/**.woff</exclude>
+                    <exclude>**/**.woff2</exclude>
+                    <exclude>**/**.ttf</exclude>
+                    <exclude>**/**.ico</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/**.css</include>
+                    <include>**/**.js</include>
+                    <include>**/**.woff</include>
+                    <include>**/**.woff2</include>
+                    <include>**/**.ttf</include>
+                    <include>**/**.ico</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/conf/${activatedProperties}</directory>

@@ -33,7 +33,7 @@ public class UserController {
 
     @PostMapping("/add")
     public Resp<Void> add(@Validated @RequestBody UserInsertParam param) {
-       userService.addUser(param);
+      // userService.addUser(param);
         return Resp.success();
     }
 

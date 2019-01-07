@@ -17,7 +17,7 @@ public class UserMapperTestCase extends PmsLabApplicationTests {
     @Test
     public void addnew() {
         Date now = new Date();
-        UserInsertParam user = new UserInsertParam();
+        UserEntity user = new UserEntity();
         user.setUsername("mybatis");
         user.setPassword("1234");
         user.setGender(1);

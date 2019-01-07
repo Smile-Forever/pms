@@ -6,7 +6,6 @@ import cn.tedu.pms.exception.ResourceRepeatException;
 import cn.tedu.pms.service.UserService;
 import cn.tedu.pms.vo.PageableVO;
 import cn.tedu.pms.vo.UserVO;
-import cn.tedu.pms.web.UserInsertParam;
 import cn.tedu.pms.web.UserQueryParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,25 +54,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-   // @Transactional(readOnly = true , rollbackFor = Exception.class)
-    public UserInsertParam addUser(UserInsertParam param) {
-        UserEntity data = userDao.findByUsername(param.getUsername());
+   @Transactional(rollbackFor = Exception.class)
+    public UserEntity addUser(UserEntity entity) {
+        UserEntity data = userDao.findByUsername(entity.getUsername());
         if(data != null){
-            throw new ResourceRepeatException("已经存在名称为" + param.getUsername() + "的用户");
+            throw new ResourceRepeatException("已经存在名称为" + entity.getUsername() + "的用户");
         }
-        param.setIsDelete(0);
+        entity.setIsDelete(0);
         String salt = UUID.randomUUID().toString().toUpperCase();
-        String srcPassword = param.getPassword();
+        String srcPassword = entity.getPassword();
         String md5Password = getMD5Password(srcPassword , salt);
         Date now = new Date();
-        param.setCreatedUser(data.getUsername());
-        param.setCreatedTime(now);
-        param.setModifiedUser(data.getUsername());
-        param.setCreatedTime(now);
-        param.setPassword(md5Password);
-        param.setSalt(salt);
-        userDao.addnew(param);
-        return param;
+        entity.setCreatedUser(entity.getUsername());
+        entity.setCreatedTime(now);
+        entity.setModifiedUser(entity.getUsername());
+        entity.setCreatedTime(now);
+        entity.setPassword(md5Password);
+        entity.setSalt(salt);
+        userDao.addnew(entity);
+        return entity;
     }
 
     @Override
@@ -82,8 +81,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-   // @Transactional(readOnly = true , rollbackFor = Exception.class)
-    public void deleteIds(Integer id) {
-        this.userDao.deleteIds(new Integer[]{id});
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteIds(Integer id) {
+        return this.userDao.deleteIds(new Integer[]{id});
     }
 }

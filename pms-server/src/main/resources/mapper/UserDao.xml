@@ -103,7 +103,7 @@
          user
          where id in (
           <foreach collection="array" separator="," item="id">
-              id=#{id}
+              #{id}
           </foreach>
          )
     </delete>

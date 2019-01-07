@@ -31,14 +31,22 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/resources/")
-                .addResourceLocations("classpath:/resources/")
-                .addResourceLocations("classpath:/static/")
-                .addResourceLocations("classpath:/templates/")
-                .addResourceLocations("classpath:/templates/")
-                .addResourceLocations("file:/tmp/")
-                .addResourceLocations("classpath:/public/");
+//        registry.addResourceHandler("/**")
+//                .addResourceLocations("classpath:/META-INF/resources/")
+//                .addResourceLocations("classpath:/resources/")
+//                .addResourceLocations("classpath:/static/")
+//                .addResourceLocations("classpath:/templates/")
+//                .addResourceLocations("classpath:/templates/")
+//                .addResourceLocations("file:/tmp/")
+//                .addResourceLocations("classpath:/public/");
+        registry.addResourceHandler("/css/**")
+                .addResourceLocations("classpath:/templates/css/");
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations("classpath:/templates/js/");
+        registry.addResourceHandler("/fonts/**")
+                .addResourceLocations("classpath:/templates/fonts/");
+//        registry.addResourceHandler("/**")
+//                .addResourceLocations("classpath:/templates/");
         super.addResourceHandlers(registry);
     }
 

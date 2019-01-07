@@ -3,7 +3,6 @@ package cn.tedu.pms.service;
 import cn.tedu.pms.entity.UserEntity;
 import cn.tedu.pms.vo.PageableVO;
 import cn.tedu.pms.vo.UserVO;
-import cn.tedu.pms.web.UserInsertParam;
 import cn.tedu.pms.web.UserQueryParam;
 
 /**
@@ -25,7 +24,7 @@ public interface UserService {
      * @param param
      * @return
      */
-    UserInsertParam addUser(UserInsertParam param);
+    UserEntity addUser(UserEntity entity);
     /**
      * 修改用户资料
      * @param param
@@ -36,5 +35,5 @@ public interface UserService {
      * 删除用户
      * @param id
      */
-    void deleteIds(Integer id);
+    int deleteIds(Integer id);
 }

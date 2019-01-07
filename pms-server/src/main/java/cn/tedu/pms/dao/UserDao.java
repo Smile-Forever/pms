@@ -17,10 +17,10 @@ import java.util.List;
 public interface UserDao {
     /**
      * 新增用户
-     * @param param
+     * @param entity
      * @return 受影响行数
      */
-    Integer addnew(UserInsertParam param);
+    Integer addnew(UserEntity entity);
 
     /**
      * 根据用户id查询用户数据
